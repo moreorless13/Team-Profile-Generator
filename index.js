@@ -138,6 +138,9 @@ const addAnotherTeamMember = () => {
     });
 };
 
+// function to generate html file
+// function to populate html file
+
 const init = () => {
     console.log("Ignition...");
     getManager();

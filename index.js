@@ -4,35 +4,73 @@ const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
+const { isTypedArray } = require('util/types');
 
 let teamMembers = [];
+let idArray = [];
 
 const getManager = () => {
+    console.log('Please build your team');
     return inquirer.prompt([
         {
             type: "input",
             message: "Please enter Manager's Employee Id",
             name: "id",
+            validate: answer => {
+                const pass = answer.match(
+                    /^[1-9]\d*$/
+                );
+                if (pass) {
+                    return true;
+                }
+
+                return "Please enter a positive number."
+            }
         },
         {
             type: 'input',
             message: "Please input Team Manager's Name: ",
             name: "name",
+            validate: answer => {
+                if (answer !== '') {
+                    return true;
+                }
+                return "Please enter at least one character.";
+            }
         },
         {
             type: "input",
             message: "Please enter Manager's Email Address: ",
             name: 'email',
+            validate: answer => {
+                const pass = answer.match(
+                    /\S+@\S+\.\S+/
+                );
+                if (pass) {
+                    return true;
+                }
+                return "Please enter a valid email address.";
+            }
         },
         {
             type: 'input',
             message: "Please Enter the Manager's Office Number: ",
             name: 'officeNumber',
+            validate: answer => {
+                const pass = answer.match(
+                    /^[1-9]\d*$/
+                );
+                if (pass) {
+                    return true;
+                }
+                return "Please enter a positive number greater than zero.";
+            }
         }
     ])
     .then(answers => {
             let manager = new Manager(answers.id, answers.name, answers.email, answers.officeNumber);
             teamMembers.push(manager);
+            idArray.push(answers.id);
             console.log(teamMembers);
             addAnotherTeamMember();
         })

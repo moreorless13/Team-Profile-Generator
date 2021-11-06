@@ -23,6 +23,10 @@ npm i
 ## Instructions:
 ```
 node index.js
+
+Walkthrough Video: 
+
+https://drive.google.com/file/d/1QU2iQz0F_k6lK0nQmIIVnfsQXVfvfNG8/view?usp=sharing
 ```
      
 ## Tests:
